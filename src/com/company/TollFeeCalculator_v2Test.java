@@ -44,7 +44,8 @@ public class TollFeeCalculator_v2Test {
 
     @Test
     @DisplayName("Testing getTollFeePerPassing")
-    void getTollFeePerPassing() {
+    void getTollFeePerPassing() {       // testing if the toll registers the fee when passing
+
         LocalDateTime date = LocalDateTime.parse("2020-06-30 00:05", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         assertEquals(0, TollFeeCalculator_v2.getTollFeePerPassing(date));
 
