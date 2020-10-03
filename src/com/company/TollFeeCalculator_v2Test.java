@@ -81,7 +81,7 @@ public class TollFeeCalculator_v2Test {
 
     @Test
     @DisplayName("Testing the total fee cost")
-    void getTotalFeeCost() {
+    void getTotalFeeCost() {        // testing if the total fee is between 0 and 60, can not be over 60
 
        //code
 
