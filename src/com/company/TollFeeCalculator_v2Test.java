@@ -77,5 +77,14 @@ public class TollFeeCalculator_v2Test {
         assertEquals(0, TollFeeCalculator_v2.getTollFeePerPassing(date10));
 
     }
+
+
+    @Test
+    @DisplayName("Testing the total fee cost")
+    void getTotalFeeCost() {
+
+       //code
+
+    }
 }
 
