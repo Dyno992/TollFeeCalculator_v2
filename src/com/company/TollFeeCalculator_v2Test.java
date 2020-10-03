@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Testing TollFeeCalculator")
 public class TollFeeCalculator_v2Test {
+
     @BeforeEach
     void before() {
         System.out.println("Test starting");
@@ -26,7 +27,7 @@ public class TollFeeCalculator_v2Test {
 
     @Test
     @DisplayName("Testing isTollFreeDate?")
-    void isTollFreeDate() {
+    void isTollFreeDate() {     // testing if the toll is free during weekend and July month
         LocalDateTime date = LocalDateTime.parse("2020-07-01 09:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         assertTrue(TollFeeCalculator_v2.isTollFreeDate(date));
         LocalDateTime date2 = LocalDateTime.parse("2020-08-01 10:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
