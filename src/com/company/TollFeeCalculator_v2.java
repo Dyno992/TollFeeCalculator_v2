@@ -38,16 +38,17 @@ public class TollFeeCalculator_v2 {
             LocalDateTime intervalStart = dates[0];
             for (LocalDateTime date : dates) {
                 System.out.println(date.toString());
+                System.out.println("Total, feeprice, temp : " + totalFee +"," + feePrice + "," + tempFeeWithinAnHour);
                 long diffInMinutes = intervalStart.until(date, ChronoUnit.MINUTES);
-                if (diffInMinutes > 60) {
+                if (diffInMinutes >= 60) {              //ToDo bug 9,
                     feePrice = getTollFeePerPassing(date);
                     totalFee += feePrice;
                     intervalStart = date;
                 } else {
-                    tempFeeWithinAnHour = Math.max(feePrice, tempFeeWithinAnHour);
+                    tempFeeWithinAnHour = Math.max(getTollFeePerPassing(date), tempFeeWithinAnHour);
                 }                         // ToDo bug 4, need to change operator for totalFee from "+=" to "=".
             }
-        } catch (Exception e){             // ToDo bug 7, dont need TryCatch here (överflödig kod?)
+        } catch (Exception e){             // ToDo bug 7, dont need TryCatch here (överflödig kod???)
             System.out.println("Something went wrong: " + e);
         }
         return Math.min(totalFee + tempFeeWithinAnHour, 60);       // ToDo bug 3, need to change max to min.
