@@ -45,7 +45,7 @@ public class TollFeeCalculator_v2 {
                     totalFee += feePrice;
                     intervalStart = date;
                 } else {
-                    tempFeeWithinAnHour = Math.max(getTollFeePerPassing(date), tempFeeWithinAnHour);
+                    tempFeeWithinAnHour = Math.max(feePrice, tempFeeWithinAnHour);
                 }                         // ToDo bug 4, need to change operator for totalFee from "+=" to "=".
             }
         } catch (Exception e){             // ToDo bug 7, dont need TryCatch here (överflödig kod???)
