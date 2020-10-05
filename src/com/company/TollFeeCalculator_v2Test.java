@@ -51,8 +51,9 @@ public class TollFeeCalculator_v2Test {
     @Test
     @DisplayName("Testing Length of arrays")
     void TestLength() {
-        TollFeeCalculator_v2 t = new TollFeeCalculator_v2("testData/Lab4.txt");
-        assertEquals(t.testDates.length, t.testDateStrings.length);
+        String[] dateStrings;
+        dateStrings = new String[]{"2020-04-01 08:00", "2020-04-02 09:00", "2020-04-03 10:00"};
+        assertEquals(dateStrings.length, TollFeeCalculator_v2.getDates(dateStrings).length);
     }
 
     @Test
@@ -78,11 +79,11 @@ public class TollFeeCalculator_v2Test {
         LocalDateTime[] dates = new LocalDateTime[6];
         dates[0] = LocalDateTime.parse("2020-06-30 06:01", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         dates[1] = LocalDateTime.parse("2020-06-30 06:33", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        dates[2] = LocalDateTime.parse("2020-06-30 07:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        dates[3] = LocalDateTime.parse("2020-06-30 08:15", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        dates[2] = LocalDateTime.parse("2020-06-30 08:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        dates[3] = LocalDateTime.parse("2020-06-30 09:15", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         dates[4] = LocalDateTime.parse("2020-06-30 14:35", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         dates[5] = LocalDateTime.parse("2020-06-30 15:15", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        assertEquals(44, TollFeeCalculator_v2.getTotalFeeCost(dates));
+        assertEquals(39, TollFeeCalculator_v2.getTotalFeeCost(dates));
     }
 
     @Test
@@ -128,22 +129,23 @@ public class TollFeeCalculator_v2Test {
     @Test
     @DisplayName("Testing the total fee cost")
     void getTotalFeeCost() {        // testing if the total fee is between 0 and 60, can not be over 60
-        LocalDateTime[] dates = new LocalDateTime[10];
+        // if fee is Over 60.
+        LocalDateTime[] dates = new LocalDateTime[6];
             dates[0] = LocalDateTime.parse("2020-06-30 06:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[1] = LocalDateTime.parse("2020-06-30 06:34", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[2] = LocalDateTime.parse("2020-06-30 07:52", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[3] = LocalDateTime.parse("2020-06-30 08:13", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[4] = LocalDateTime.parse("2020-06-30 09:25", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[5] = LocalDateTime.parse("2020-06-30 10:04", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[6] = LocalDateTime.parse("2020-06-30 11:50", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[7] = LocalDateTime.parse("2020-06-30 12:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[8] = LocalDateTime.parse("2020-06-30 13:30", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            dates[9] = LocalDateTime.parse("2020-07-01 14:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        if (TollFeeCalculator_v2.getTotalFeeCost(dates) > 60){
+            dates[1] = LocalDateTime.parse("2020-06-30 07:34", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            dates[2] = LocalDateTime.parse("2020-06-30 08:52", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            dates[3] = LocalDateTime.parse("2020-06-30 10:13", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            dates[4] = LocalDateTime.parse("2020-06-30 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            dates[5] = LocalDateTime.parse("2020-06-30 16:50", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             assertEquals(60, TollFeeCalculator_v2.getTotalFeeCost(dates));
-        }else {
-            assertEquals(TollFeeCalculator_v2.getTotalFeeCost(dates), TollFeeCalculator_v2.getTotalFeeCost(dates));
-        }
+        // if fee is Under 60
+            LocalDateTime[] dates2 = new LocalDateTime[4];
+        dates2[0] = LocalDateTime.parse("2020-06-30 07:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        dates2[1] = LocalDateTime.parse("2020-06-30 08:34", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        dates2[2] = LocalDateTime.parse("2020-06-30 11:52", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        dates2[3] = LocalDateTime.parse("2020-06-30 18:01", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        assertEquals(42, TollFeeCalculator_v2.getTotalFeeCost(dates2));
+
     }
 }
 
