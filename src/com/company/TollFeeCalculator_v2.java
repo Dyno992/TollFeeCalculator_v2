@@ -38,17 +38,28 @@ public class TollFeeCalculator_v2 {
     public static int getTotalFeeCost(LocalDateTime[] dates) {
         int totalFee = 0;
         int tempFeeWithinAnHour = 0;   // toDo bug 4, need also new variables to store prices in
+        int lastFee = 0;
+        int actualFee = 0;
         long diffInMinutes = 0;
         LocalDateTime intervalStart = dates[0];
         for (LocalDateTime date : dates) {
             System.out.println(date.toString());
             diffInMinutes = intervalStart.until(date, ChronoUnit.MINUTES);
             if (diffInMinutes <= 60) {
+                lastFee = getTollFeePerPassing(intervalStart);
+                actualFee = getTollFeePerPassing(date);
                 tempFeeWithinAnHour = Math.max(getTollFeePerPassing(date), tempFeeWithinAnHour);
                 if (tempFeeWithinAnHour > totalFee){       // ToDo bug 5, added if to store price in totalFee
                     totalFee = tempFeeWithinAnHour;
+                }else if (lastFee > actualFee){           // ToDo bug 10, added else if (lastFee > actualFee)
+                    totalFee -= actualFee;
+                    totalFee += lastFee;
                 }
             } else {                     // ToDo bug 6, changed comparison between interValFee and dateFee
+                if (tempFeeWithinAnHour > getTollFeePerPassing(date)){
+                    tempFeeWithinAnHour = Math.min(getTollFeePerPassing(date), tempFeeWithinAnHour);
+                }
+                tempFeeWithinAnHour = Math.max(getTollFeePerPassing(date), tempFeeWithinAnHour);
                 totalFee += tempFeeWithinAnHour;
                 intervalStart = date;
                 tempFeeWithinAnHour = getTollFeePerPassing(intervalStart);
