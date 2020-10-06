@@ -38,27 +38,25 @@ public class TollFeeCalculator_v2 {
     public static int getTotalFeeCost(LocalDateTime[] dates) {
         int totalFee = 0;
         int tempFeeWithinAnHour = 0;   // toDo bug 4, need also new variables to store prices in
-        int feePrice = 0;
         long diffInMinutes = 0;
         LocalDateTime intervalStart = dates[0];
         for (LocalDateTime date : dates) {
             System.out.println(date.toString());
             diffInMinutes = intervalStart.until(date, ChronoUnit.MINUTES);
-            if (diffInMinutes <= 60) {              //ToDo bug 9,
+            if (diffInMinutes <= 60) {
                 tempFeeWithinAnHour = Math.max(getTollFeePerPassing(date), tempFeeWithinAnHour);
-                if (tempFeeWithinAnHour > totalFee){       // ToDo bug 10, added if to store price in totalFee
+                if (tempFeeWithinAnHour > totalFee){       // ToDo bug 5, added if to store price in totalFee
                     totalFee = tempFeeWithinAnHour;
                 }
-            } else {                     // ToDo bug 5, changed comparison between interValFee and dateFee
-                feePrice = getTollFeePerPassing(date);
-                totalFee += feePrice;
+            } else {                     // ToDo bug 6, changed comparison between interValFee and dateFee
+                totalFee += tempFeeWithinAnHour;
                 intervalStart = date;
                 tempFeeWithinAnHour = getTollFeePerPassing(intervalStart);
             }
 
         }
-        if(diffInMinutes > 60) totalFee +=tempFeeWithinAnHour;
-        return Math.min(totalFee, 60);       // ToDo bug 6, need to change max to min.
+       // if(diffInMinutes > 60) totalFee +=tempFeeWithinAnHour;
+        return Math.min(totalFee, 60);       // ToDo bug 7, need to change max to min.
     }
 
     public static int getTollFeePerPassing(LocalDateTime date) {
@@ -69,9 +67,9 @@ public class TollFeeCalculator_v2 {
         else if (hour == 6 ) return 13;
         else if (hour == 7 ) return 18;
         else if (hour == 8 && minute <= 29) return 13;
-        else if (hour >= 8 && hour <= 14 && minute < 59 ) return 8;// Todo bug 7, need to change if to 8:00-14:59
+        else if (hour >= 8 && hour <= 14 && minute < 59 ) return 8;// Todo bug 8, need to change if to 8:00-14:59
         else if (hour == 15 && minute <= 29) return 13;
-        else if (hour == 15  || hour == 16) return 18;      // ToDo bug 8, Unnecessary Code, cleaned up variable minute.
+        else if (hour == 15  || hour == 16) return 18;      // ToDo bug 9, Unnecessary Code, cleaned up variable minute.
         else if (hour == 17) return 13;
         else if (hour == 18 && minute <= 29) return 8;
         else return 0;
