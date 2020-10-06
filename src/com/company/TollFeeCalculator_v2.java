@@ -2,12 +2,10 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -39,9 +37,9 @@ public class TollFeeCalculator_v2 {
     public static int getTotalFeeCost(LocalDateTime[] dates) {
         int totalFee = 0;
         int tempFeeWithinAnHour = 0;   // toDo bug 4, need also new variables to store prices in
-        int lastFee = 0;
-        int actualFee = 0;
-        long diffInMinutes = 0;
+        int lastFee;
+        int actualFee;
+        long diffInMinutes;
         LocalDateTime intervalStart = dates[0];
         for (LocalDateTime date : dates) {
             System.out.println(date.toString());
