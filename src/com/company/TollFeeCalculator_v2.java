@@ -18,10 +18,11 @@ public class TollFeeCalculator_v2 {
             dateStrings = getDateStrings(inputFile);
             LocalDateTime[] dates = getDates(dateStrings);
             System.out.println("The total fee for the inputfile is " + getTotalFeeCost(dates));
-        } catch(IOException | NoSuchElementException | DateTimeParseException e)  {
+        } catch(FileNotFoundException | NoSuchElementException | DateTimeParseException e)  {
             System.err.println("Could not read file: " + inputFile); // ToDo bug 1-2, add specific exceptions
         }
     }
+
     public static String[] getDateStrings(String inputFile) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(inputFile));
         return sc.nextLine().split(", ");
