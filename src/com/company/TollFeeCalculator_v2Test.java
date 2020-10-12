@@ -4,15 +4,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -89,7 +84,7 @@ public class TollFeeCalculator_v2Test {
     @Test
     @DisplayName("Testing getTollFeePerPassing")
     void getTollFeePerPassing() {       // testing if the toll registers the fee when passing
-        LocalDateTime date = LocalDateTime.parse("2020-06-30 06:05", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime date = LocalDateTime.parse("2020-06-30 14:59", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         assertEquals(8, TollFeeCalculator_v2.getTollFeePerPassing(date));
 
         LocalDateTime date2 = LocalDateTime.parse("2020-06-30 06:34", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -120,10 +115,10 @@ public class TollFeeCalculator_v2Test {
         assertEquals(0, TollFeeCalculator_v2.getTollFeePerPassing(date10));
 
         LocalDateTime date11 = LocalDateTime.parse("2020-09-26 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        assertEquals(0, TollFeeCalculator_v2.getTollFeePerPassing(date10));
+        assertEquals(0, TollFeeCalculator_v2.getTollFeePerPassing(date11));
 
         LocalDateTime date12 = LocalDateTime.parse("2020-09-27 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        assertEquals(0, TollFeeCalculator_v2.getTollFeePerPassing(date10));
+        assertEquals(0, TollFeeCalculator_v2.getTollFeePerPassing(date12));
     }
 
     @Test
